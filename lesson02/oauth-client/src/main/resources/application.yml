@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: oauth-client
+
+  security:
+    oauth2:
+      client:
+        registration:
+          oidc-client:
+            # 注册应用后的Client ID，这里对应oauth-server的client-id
+            clientId: oidc-client
+            # 注册应用后的Client Secret，这里对应oauth-server的client-secret
+            clientSecret: secret
+            # 授权码模式
+            authorizationGrantType: authorization_code
+            client-authentication-method: client_secret_basic
+            # 回调地址，这里对应oauth-server的redirect-uris
+            redirectUri: http://localhost:8080/login/oauth2/code/oidc-client
+            # 授权访问
+            scope:
+              - openid
+              - profile
+            # 应用的provider，注意，这个名称可以随便命名，但是必须与下面的provider保持一致
+            provider: myserverprovider
+        provider:
+          myserverprovider:
+            # 自建认证授权地址，之所以采用不同域名是为了防止Cookie覆盖问题
+            authorizationUri: http://oauth-server:9000/oauth2/authorize
+            # 自建认证获取access_token地址，之所以采用不同域名是为了防止Cookie覆盖问题
+            tokenUri: http://oauth-server:9000/oauth2/token
+            # 验证JWT签名，之所以采用不同域名是为了防止Cookie覆盖问题
+            jwkSetUri: http://oauth-server:9000/oauth2/jwks

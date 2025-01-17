@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+客户端 -> OAuth2AuthorizationEndpointFilter: 请求/oauth2/authorize接口
+OAuth2AuthorizationEndpointFilter -> AuthorizationFilter: 无权限不处理，跳转到下一个Filter
+AuthorizationFilter -> LoginUrlAuthenticationEntryPoint: 无权限不抛出AccessDeniedException
+LoginUrlAuthenticationEntryPoint -> 登录界面: 跳转到登录界面
+登录界面 -> OAuth2AuthorizationEndpointFilter: 请求/oauth2/authorize接口
+OAuth2AuthorizationEndpointFilter -> 授权界面: 跳转到授权界面
+授权界面 -> OAuth2AuthorizationEndpointFilter: 确认有权限、已授权，返回授权码code
+OAuth2AuthorizationEndpointFilter --> 客户端: 返回授权码code
+客户端 -> OAuth2TokenEndpointFilter: 请求/oauth2/token接口
+客户端 <-- OAuth2TokenEndpointFilter: 返回token
+
+@enduml
