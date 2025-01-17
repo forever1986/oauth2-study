@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: oauth-client
+
+  security:
+    oauth2:
+      client:
+        registration:
+          gitee:
+            # 注册应用后的Client ID
+            clientId: 4ddd4addff13f3291bde42f3f0c7a41b597a5f8fe3af3edbb17313218640aa0f
+            # 注册应用后的Client Secret
+            clientSecret: ab30324e267bb203139d1e2f7fb3641f9f36bad018a1e78800bf8194e932e4e5
+            # 授权码模式
+            authorizationGrantType: authorization_code
+            # 回调地址
+            redirectUri: http://localhost:8080/login/oauth2/code/gitee
+            # 授权访问
+            scope:
+              - user_info
+            # 应用的provider，注意，这个名称可以随便命名，但是必须与下面的provider保持一致
+            provider: giteeprovider
+        provider:
+          giteeprovider:
+            # gitee认证授权地址
+            authorizationUri: https://gitee.com/oauth/authorize
+            # gitee获取access_token地址
+            tokenUri: https://gitee.com/oauth/token
+            # 客户端主页地址
+            userInfoUri: https://gitee.com/api/v5/user
+            # 获取用户属性的值
+            userNameAttribute: name

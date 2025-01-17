@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+用户 -> AuthorizationFilter: /oauthlogin请求
+AuthorizationFilter -> LoginUrlAuthenticationEntryPoint: 抛出AccessDeniedException异常
+LoginUrlAuthenticationEntryPoint -> OAuth2AuthorizationRequestRedirectFilter: 跳转请求/oauth2/authorization/gitee
+OAuth2AuthorizationRequestRedirectFilter -> OAuth2AuthorizationRequestRedirectFilter: 读取ClientRegistration配置
+OAuth2AuthorizationRequestRedirectFilter -> gitee授权服务器: 跳转到https://gitee.com/oauth/authorize
+gitee授权服务器 -> OAuth2LoginAuthenticationFilter: 回调/login/oauth2/code/gitee接口
+OAuth2LoginAuthenticationFilter -> OAuth2LoginAuthenticationProvider: 获取token
+OAuth2LoginAuthenticationProvider -> OAuth2AuthorizationCodeAuthenticationProvider: 获取token
+OAuth2AuthorizationCodeAuthenticationProvider -> gitee授权服务器: 获取token
+OAuth2AuthorizationCodeAuthenticationProvider <-- gitee授权服务器: 返回token
+OAuth2LoginAuthenticationProvider <-- OAuth2AuthorizationCodeAuthenticationProvider: 返回token
+OAuth2LoginAuthenticationFilter <-- OAuth2LoginAuthenticationProvider: 返回token
+OAuth2LoginAuthenticationFilter <-- OAuth2LoginAuthenticationFilter: 保存authorizedClient
+AuthorizationFilter <-- OAuth2LoginAuthenticationFilter: 保存authorizedClient
+用户 <-- AuthorizationFilter: 可以访问/oauthlogin请求
+
+@enduml
