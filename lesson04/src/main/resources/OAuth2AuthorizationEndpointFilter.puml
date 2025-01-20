@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+OAuth2AuthorizationEndpointFilter -> OAuth2AuthorizationCodeRequestAuthenticationConverter: HttpServletRequest request 转换参数
+OAuth2AuthorizationCodeRequestAuthenticationConverter -> OAuth2AuthorizationCodeRequestAuthenticationConverter: 解析request参数，\n并获取登录信息（如未登录，则返回匿名信息）
+OAuth2AuthorizationEndpointFilter <-- OAuth2AuthorizationCodeRequestAuthenticationConverter: Authentication authentication 返回封装结果
+OAuth2AuthorizationEndpointFilter -> OAuth2AuthorizationCodeRequestAuthenticationProvider: Authentication authentication 验证信息
+OAuth2AuthorizationCodeRequestAuthenticationProvider -> RegisteredClientRepository: 获取客户端信息
+OAuth2AuthorizationCodeRequestAuthenticationProvider <-- RegisteredClientRepository: 返回客户端信息
+OAuth2AuthorizationCodeRequestAuthenticationProvider -> OAuth2AuthorizationCodeRequestAuthenticationProvider: 客户端信息验证
+OAuth2AuthorizationCodeRequestAuthenticationProvider -> OAuth2AuthorizationCodeRequestAuthenticationProvider: 判断是否需要打开授权页面
+OAuth2AuthorizationCodeRequestAuthenticationProvider -> AuthorizationConsentService: 读取oauth2_authorization_consent表,看是否授权过
+OAuth2AuthorizationCodeRequestAuthenticationProvider <-- AuthorizationConsentService: 返回oauth2_authorization_consent信息
+OAuth2AuthorizationCodeRequestAuthenticationProvider -> AuthorizationService: 如果没有授权过，\n存储授权信息到oauth2_authorization表
+OAuth2AuthorizationCodeRequestAuthenticationProvider <-- AuthorizationService: 保存成功
+OAuth2AuthorizationEndpointFilter <-- OAuth2AuthorizationCodeRequestAuthenticationProvider: Authentication authentication 返回封装结果
+OAuth2AuthorizationEndpointFilter -> OAuth2AuthorizationEndpointFilter: 判断是否登录过，未登录，\n则由后续过滤器去处理
+OAuth2AuthorizationEndpointFilter -> OAuth2AuthorizationEndpointFilter: 判断是否要打开授权页面，如果需要，\n调用sendAuthorizationConsent方法打开授权界面；\n如果已经授权过，\n则调用authenticationSuccessHandler返回授权码
+
+
+
+
+
+
+@enduml

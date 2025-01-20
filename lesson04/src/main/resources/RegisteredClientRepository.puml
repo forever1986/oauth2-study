@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class InMemoryRegisteredClientRepository
+class JdbcRegisteredClientRepository
+interface RegisteredClientRepository
+
+RegisteredClientRepository <|.. InMemoryRegisteredClientRepository
+RegisteredClientRepository <|.. JdbcRegisteredClientRepository
+
+@enduml

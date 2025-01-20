@@ -1,0 +1,17 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface AuthenticationProvider
+class OAuth2AuthorizationCodeRequestAuthenticationProvider
+class OAuth2AuthorizationConsentAuthenticationProvider
+class OAuth2TokenExchangeAuthenticationProvider
+class OAuth2RefreshTokenAuthenticationProvider
+
+AuthenticationProvider <|-- OAuth2AuthorizationCodeRequestAuthenticationProvider
+AuthenticationProvider <|-- OAuth2AuthorizationConsentAuthenticationProvider
+AuthenticationProvider <|-- OAuth2TokenExchangeAuthenticationProvider
+AuthenticationProvider <|-- OAuth2RefreshTokenAuthenticationProvider
+
+
+@enduml

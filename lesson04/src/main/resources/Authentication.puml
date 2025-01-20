@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Authentication
+abstract class AbstractAuthenticationToken
+class OAuth2AuthorizationCodeRequestAuthenticationToken
+class OAuth2AuthorizationConsentAuthenticationToken
+class OAuth2TokenExchangeAuthenticationToken
+class OAuth2RefreshTokenAuthenticationToken
+
+Authentication <|.. AbstractAuthenticationToken
+AbstractAuthenticationToken <|-- OAuth2AuthorizationCodeRequestAuthenticationToken
+AbstractAuthenticationToken <|-- OAuth2AuthorizationConsentAuthenticationToken
+AbstractAuthenticationToken <|-- OAuth2TokenExchangeAuthenticationToken
+AbstractAuthenticationToken <|-- OAuth2RefreshTokenAuthenticationToken
+
+
+
+@enduml
