@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface OAuth2TokenGenerator
+class JwtGenerator
+
+OAuth2TokenGenerator <|-- JwtGenerator
+OAuth2TokenGenerator <|-- DelegatingOAuth2TokenGenerator
+OAuth2TokenGenerator <|-- OAuth2AccessTokenGenerator
+OAuth2TokenGenerator <|-- OAuth2RefreshTokenGenerator
+
+@enduml
