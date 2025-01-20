@@ -3,13 +3,14 @@
 
 interface AuthenticationConverter
 class OAuth2AuthorizationCodeRequestAuthenticationConverter
-class OAuth2DeviceAuthorizationConsentAuthenticationConverter
+class OAuth2AuthorizationCodeAuthenticationConverter
 class OAuth2TokenExchangeAuthenticationConverter
 class OAuth2RefreshTokenAuthenticationConverter
 
 
 AuthenticationConverter <|.. OAuth2AuthorizationCodeRequestAuthenticationConverter
-AuthenticationConverter <|.. OAuth2DeviceAuthorizationConsentAuthenticationConverter
+AuthenticationConverter <|.. OAuth2AuthorizationConsentAuthenticationConverter
+AuthenticationConverter <|.. OAuth2AuthorizationCodeAuthenticationConverter
 AuthenticationConverter <|.. OAuth2TokenExchangeAuthenticationConverter
 AuthenticationConverter <|.. OAuth2RefreshTokenAuthenticationConverter
 
