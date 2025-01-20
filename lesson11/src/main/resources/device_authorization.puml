@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+设备客户端 -> OAuth2DeviceAuthorizationEndpointFilter: 请求/oauth2/device_authorization
+OAuth2DeviceAuthorizationEndpointFilter -> OAuth2DeviceAuthorizationRequestAuthenticationProvider: 生成设备码、用户码
+OAuth2DeviceAuthorizationEndpointFilter <-- OAuth2DeviceAuthorizationRequestAuthenticationProvider: 返回设备码、用户码
+设备客户端 <-- OAuth2DeviceAuthorizationEndpointFilter: 返回设备码、用户码、验证URI
+设备客户端 -> 其它设备: 使用第三方打开验证URI，比如智能手机或者浏览器
+其它设备 -> OAuth2DeviceVerificationEndpointFilter: 访问验证URI：/oauth2/device_verification接口
+OAuth2DeviceVerificationEndpointFilter -> 授权页面: 跳转授权页面
+其它设备 <-- 授权页面: 返回成功
+设备客户端 <-- 其它设备
+设备客户端 -> OAuth2TokenEndpointFilter: 请求：/oauth2/token接口
+OAuth2TokenEndpointFilter -> OAuth2DeviceCodeAuthenticationProvider: 认证并返回token
+设备客户端 <-- OAuth2DeviceCodeAuthenticationProvider: 返回token
+
+@enduml
