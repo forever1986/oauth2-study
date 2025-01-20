@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+用户 -> BearerTokenAuthenticationFilter: 在Authentication传入access_token
+BearerTokenAuthenticationFilter -> AuthenticationManager: 调用authenticate
+AuthenticationManager -> ProviderManager: 调用authenticate
+ProviderManager -> JwtAuthenticationProvider: 调用authenticate
+JwtAuthenticationProvider -> jwtDecoder: 调用decode
+jwtDecoder -> NimbusJwtDecoder: 调用decode
+NimbusJwtDecoder -> JwtDecoderProviderConfigurationUtils: 调用getConfiguration
+JwtDecoderProviderConfigurationUtils -> 授权服务器: /.well-known/openid-configuration接口
+JwtDecoderProviderConfigurationUtils <-- 授权服务器: 返回开放的jwks_uri接口地址
+NimbusJwtDecoder <-- JwtDecoderProviderConfigurationUtils: 返回开放的jwks_uri接口地址
+NimbusJwtDecoder -> 授权服务器: 调用jwks_uri接口地址获取公开密钥
+NimbusJwtDecoder <-- 授权服务器: 返回公开密钥
+NimbusJwtDecoder <-- 授权服务器: 返回公开密钥
+jwtDecoder <-- NimbusJwtDecoder: 返回公开密钥
+JwtAuthenticationProvider <-- jwtDecoder: 解密token
+ProviderManager <-- JwtAuthenticationProvider: 返回Authentication结果
+AuthenticationManager <-- ProviderManager: 返回Authentication结果
+BearerTokenAuthenticationFilter <-- ProviderManager: 返回Authentication结果
+BearerTokenAuthenticationFilter -> AuthorizationFilter: 设置context，判断权限
+AuthorizationFilter -> UserInfoController: 调用/userInfo接口
+用户 <-- UserInfoController: 返回数据
+
+@enduml
