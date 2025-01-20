@@ -1,0 +1,47 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    org.springframework.security: trace
+
+spring:
+  security:
+    # 使用security配置授权服务器的登录用户和密码
+    user:
+      name: user
+      password: 1234
+    oauth2:
+      authorizationserver:
+        # 客户端应用注册，这里就类似我们在gitee上面注册自己的应用一样
+        client:
+          # 客户端名称
+          oidc-client:
+            registration:
+              # 客户端id
+              client-id: "oidc-client"
+              # 客户端secret
+              client-secret: "{noop}secret"
+              # 客户端验证方法
+              client-authentication-methods:
+                - "client_secret_basic"
+              # 授权模式-这里使用授权码模式
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              # 回调地址
+              redirect-uris:
+                # 注意，该url在此版本中不能使用127.0.0.1，需要在host中配置域名映射，此处使用localhost
+                - "http://localhost:8080/login/oauth2/code/oidc-client"
+              # 客户端首页
+              post-logout-redirect-uris:
+                # 注意，该url在此版本中不能使用127.0.0.1，需要在host中配置域名映射，此处使用localhost
+                - "http://localhost:8080/"
+              # 授权范围
+              scopes:
+                # 用户唯一标识
+                - "openid"
+                # 用户信息
+                - "profile"
+            # 是否需要授权确认
+            require-authorization-consent: true
