@@ -1,0 +1,14 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    org.springframework.security: trace
+
+
+spring:
+  security:
+    # 使用security配置授权服务器的登录用户和密码
+    user:
+      name: user
+      password: 1234
