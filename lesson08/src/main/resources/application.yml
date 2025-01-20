@@ -1,0 +1,11 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+          #当授权服务器关闭了默认获取jwks接口，则可以使用自定义获取接口
+#          jwk-set-uri: http://localhost:9000/jwt

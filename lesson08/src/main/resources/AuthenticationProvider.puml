@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface AuthenticationProvider
+class AbstractList
+
+AuthenticationProvider <|-- ClientSecretAuthenticationProvider
+AuthenticationProvider <|-- JwtClientAssertionAuthenticationProvider
+
+@enduml
