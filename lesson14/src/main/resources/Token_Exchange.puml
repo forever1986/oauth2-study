@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+客户端 -> 授权服务器: 请求授权
+客户端 <-- 授权服务器: 返回令牌
+客户端 -> API_A: 请求API A接口
+API_A -> 授权服务器: 令牌交换
+API_A <-- 授权服务器: 返回新令牌
+API_A -> API_B: 访问
+API_A <-- API_B: 返回信息
+客户端 <-- API_A: 返回信息
+
+@enduml
