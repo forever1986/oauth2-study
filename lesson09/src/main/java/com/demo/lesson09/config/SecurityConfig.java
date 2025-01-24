@@ -65,7 +65,6 @@ public class SecurityConfig {
                     methods.add(ClientAuthenticationMethod.CLIENT_SECRET_POST);
                     methods.add(ClientAuthenticationMethod.CLIENT_SECRET_JWT);
                     methods.add(ClientAuthenticationMethod.PRIVATE_KEY_JWT);
-                    methods.add(ClientAuthenticationMethod.NONE);
                 })
                 // 客户端配置，使用RS256加密，公钥地址：http://localhost:9000/jwt
                 .clientSettings(ClientSettings.builder()

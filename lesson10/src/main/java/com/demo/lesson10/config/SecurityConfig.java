@@ -66,7 +66,7 @@ public class SecurityConfig {
                         .requireProofKey(true)
                         .requireAuthorizationConsent(true)
                         .build())
-                // 这里为了方便采用客户端模式，而非授权码模式
+                // 授权码模式
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 // 回调地址
                 .redirectUri("http://localhost:8080/login/oauth2/code/oidc-client")
