@@ -1,0 +1,26 @@
+server:
+  port: 9000
+
+  ssl:
+    # 服务器配置
+    key-store: classpath:keystore.jks
+    key-store-password: linmoo
+    key-alias: localhost
+    key-password: linmoo
+    enabled: true
+    # 客户端信任库配置
+    trust-store: classpath:truststore.jks
+    trust-store-password: linmoo
+    client-auth: need
+
+logging:
+  level:
+    org.springframework.security: trace
+
+
+spring:
+  security:
+    # 使用security配置授权服务器的登录用户和密码
+    user:
+      name: clientA
+      password: 1234
