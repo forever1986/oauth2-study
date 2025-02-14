@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+AuthenticationWebFilter -> ServerFormLoginAuthenticationConverter: converter
+ServerFormLoginAuthenticationConverter --> AuthenticationWebFilter: 返回AuthenticationToken
+AuthenticationWebFilter -> UserDetailsRepositoryReactiveAuthenticationManager: authenticate
+UserDetailsRepositoryReactiveAuthenticationManager -> AbstractUserDetailsReactiveAuthenticationManager: authenticate
+AbstractUserDetailsReactiveAuthenticationManager --> AuthenticationWebFilter: 返回UsernamePasswordAuthenticationToken
+@enduml
