@@ -1,0 +1,34 @@
+[
+  {
+    "id": "auth",
+    "predicates": [{
+      "args": {
+        "pattern": "/auth/**"
+      },
+      "name": "Path"
+    }],
+    "uri": "http://localhost:9000",
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }]
+  },
+  {
+    "id": "api-a",
+    "predicates": [{
+      "args": {
+        "pattern": "/api-a/**"
+      },
+      "name": "Path"
+    }],
+    "uri": "http://localhost:9002",
+    "filters": [{
+      "args": {
+        "_genkey_0": "1"
+      },
+      "name": "StripPrefix"
+    }]
+  }
+]

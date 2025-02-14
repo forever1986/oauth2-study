@@ -26,6 +26,11 @@
         <module>lesson15</module>
         <module>lesson16</module>
         <module>lesson17</module>
+        <module>lesson18</module>
+        <module>lesson19</module>
+        <module>lesson20</module>
+        <module>lesson20/gateway</module>
+        <module>lesson20/api-a</module>
     </modules>
 
     <properties>
