@@ -59,11 +59,11 @@ public class SecurityConfig {
                 .clientId("api-a")
                 // 客户端密码
                 .clientSecret("{noop}secret1")
-                // 客户端认证方式
+                // 客户端认证方式：因为是API A做令牌交换，因此没有用户参与，使用客户端模式
                 .clientAuthenticationMethods(methods ->{
                     methods.add(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
                 })
-                // 配置授权码模式
+                // 配置令牌交换
                 .authorizationGrantTypes(grantTypes -> {
                     grantTypes.add(AuthorizationGrantType.AUTHORIZATION_CODE);
                 })
